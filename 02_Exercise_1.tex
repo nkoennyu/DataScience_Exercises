@@ -1,0 +1,41 @@
+
+\chapter{Exercise 1}
+
+\section{Question 1}
+
+\subsection{Compute the expectation and the variance of this distribution}
+\subsubsection{Expectation}
+
+\begin{align}
+    \begin{split}
+        P(X=k) =& \; \frac{\lambda^k e^{-\lambda}}{k!} \;\; ; \; X \sim P(\lambda) \\
+        E[X] =& \; \sum_{k=0}^{\infty} k \cdot P(X=k) \\
+        \Rightarrow \; E[X] =& \; \sum_{k=0}^{\infty} k \cdot \frac{\lambda^k \cdot e^{-\lambda}}{k!} \\
+        \Rightarrow \; E[X] =& \; \sum_{k=1}^{\infty} \frac{\lambda^{k} e^{-\lambda}}{(k-1)!} \\
+        \Rightarrow \; E[X] =& \; \lambda e^{-\lambda} \cdot \sum_{k=1}^{\infty} \frac{\lambda^{k-1}}{(k-1)!} \;\; ; \;\; \lim_{n \to \infty} \sum_{n}^{\infty} \frac{\lambda^n}{n!} = e^{\lambda} \\
+        \Rightarrow \; E[X] =& \; \lambda e^{-\lambda} e^{\lambda} \\
+        \Rightarrow \; E[X] =& \; \lambda
+    \end{split}
+\end{align}
+
+[Insert a fuckload of comments and explanations about how the Poisson Distributions' Estimator of maximum likelihood is the average, which itself is a random variable that converges towards the true value and is therefore unbiased]
+
+\subsubsection{Variance}
+
+\begin{align}
+    \begin{split}
+        P(X=k) =& \; \frac{\lambda^k e^{-\lambda}}{k!} \;\; ; \; X \sim P(\lambda) \\
+        Var[X] =& \; E[X^2] - E^2[X] \\
+        \Rightarrow \; Var[X] =& \; \sum_{k=0}^{\infty} k^2 \cdot P(X=k) \; - \lambda^2 \\ \\
+        E[X^2] =& \sum_{k=0}^{\infty} k^2 \cdot \frac{\lambda^k \cdot e^{-\lambda}}{k!} \\
+        \Rightarrow \; E[X^2] =& \; \lambda e^{-\lambda} \cdot \sum_{k=1}^{\infty} k \cdot \frac{\lambda^{k-1}}{(k-1)!} \\
+        \Rightarrow \; E[X^2] =& \; \lambda e^{-\lambda} \cdot \left( \sum_{k=1}^{\infty} (k-1) \frac{\lambda^{k-1}}{(k-1)!} + \sum_{k=1}^{\infty} \frac{\lambda^{k-1}}{(k-1)!} \right) \\
+        \Rightarrow \; E[X^2] =& \; \lambda e^{-\lambda} \cdot \left( \lambda \cdot \sum_{k=1}^{\infty} \frac{\lambda^{k-2}}{(k-2)!} + \sum_{k=1}^{\infty} \frac{\lambda^{k-1}}{(k-1)!} \right) \;\; ; \;\; \lim_{n \to \infty} \sum_{n}^{\infty} \frac{\lambda^n}{n!} = e^{\lambda} \\
+        \Rightarrow \; E[X^2] =& \; \lambda e^{-\lambda} \cdot (\lambda e^{\lambda} + e^{\lambda}) \\
+        \Rightarrow \; E[X^2] =& \; \lambda^2 + \lambda \\ \\
+        \Rightarrow \; Var[X] =& \; \lambda^2 + \lambda - \lambda^2 \\
+        \Rightarrow \; Var[X] =& \; \lambda
+    \end{split}
+\end{align}
+
+[Insert more comments about the efficiency of the Estimator and blablabla..]
