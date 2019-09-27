@@ -3,42 +3,45 @@
 #HEC Lausanne - MScF
 #Data Science for Finance
 #Exercise Session 2 - 27.09.2019
-#Marceau Pierron, Taulant Ukshini, David Sasselli
+#Marceau Pierron, Taulant Ukshini, David Sasselli, Nora Koennyu
 #######################################################################################################
 
 
 #######################################################################################################
-#Question 2.1
+#Question 2.3
 #######################################################################################################
 
-mutotal=c()
 
-size=c(30,100,1000,10000)
+#initialization
+parameter = 0.5                             #given parameter lambda
+size=c(30,100,1000,10000)                   #sample size
+colours=c("black","red","green","blue")     #legend colors
 
+lambda_total=c()
+
+#simulating Poisson random variables and computing their expectations
 for(i in size){
-	mu=c()
+	lambda=c()
 	for(j in 1:1000){
-		x=rpois(i,0.5)
+		x=rpois(i,parameter)
 		s=mean(x)
-		mu=c(mu,s)
+		lambda=c(lambda,s)
 	}
 
-	mutotal=cbind(mutotal,mu)
+	lambda_total=cbind(lambda_total,lambda)
 
 }
-
-colours=c("black","red","green","blue")
-
+#charting the results
 par(bty="n")
 
-plot(density(mutotal[,1]),
-    ylim=c(0,50),
+plot(density(lambda_total[,1]),
+    ylim=c(0,60),
     col="black",
-    main="Question 1.2.1 Poisson Distribution",
+    main="Question 2.3 Poisson Distribution",
     xlab="")
 
-for(k in c(2,3,4)){
-    lines(density(mutotal[,k]),
+for(k in 2:lenght(size)){
+    lines(density(lambda_total[,k]),
         col=colours[k])
 }
 
@@ -51,19 +54,17 @@ legend(x="right",y=0.92,c("30 Observations","100 Observations","1000 Observation
 
 
 #######################################################################################################
-#Question 2.2
+#Question 2.4
 #######################################################################################################
 
 mu_func = function(n){
-    mu=c()
+  lambda=c()
 	for(j in 1:1000){
-		x=rpois(n,0.5)
+		x=rpois(n,parameter)
 		s=mean(x)
-		mu=c(mu,s)
+		lambda=c(lambda,s)
 	}
-
-    return(sd(mu))
-
+    return(sd(lambda))
 }
 
 func_1 = function(x){
@@ -98,4 +99,18 @@ legend(x="right",y=0.92,c("Estimated Volatility of the Estimator","1/sqrt(n)"),
     box.lty=0
 )
 
-#nora.koennyu@unil.ch
+###############################################################################
+# Question 2.3
+###############################################################################
+
+layout(matrix(1:4,2,2))
+for (i in 1:length(size)){
+  temp=(lambda_total[,i]-lambda)/(sqrt(parameter))*sqrt(size[i])
+  dens=density(temp)
+  plot(dens, 
+       xlim =c(-4,4),
+       ylim =c(0,0.5),
+       main=size[i])
+  lines(dens$x,dnorm(dens$x),col="red")
+  }
+
